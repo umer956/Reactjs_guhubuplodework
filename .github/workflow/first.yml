@@ -1,0 +1,27 @@
+name: "first workflow"
+on:
+  push:
+  pull_request:
+    branches:
+      - main
+      - dev
+      - qa
+
+jobs:
+  first-job:
+    runs-on: windows-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+
+      - name: setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: install dependency
+        run: npm ci
+
+      - name: make react build
+        run: npm run build
